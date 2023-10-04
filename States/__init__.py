@@ -1,1 +1,1 @@
-from .input_photo import action_photo
+from .input_photo import PhotoState
