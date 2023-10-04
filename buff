@@ -1,0 +1,9 @@
+from PIL import Image, ImageDraw, ImageFont
+
+image = Image.open(r"C:\Users\misha\PycharmProjects\MyFirstTGbot\handlers\img\1.jpg")
+
+font = ImageFont.truetype("arial.ttf", 25)
+drawer = ImageDraw.Draw(image)
+drawer.text((50, 100), "Хуй", font=font, fill='black')
+
+image.save(r'C:\Users\misha\PycharmProjects\MyFirstTGbot\redact_image')
