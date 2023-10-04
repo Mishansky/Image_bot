@@ -11,7 +11,7 @@ import os
 @dp.callback_query_handler(lambda query: query.data == "upload_photo")
 
 async def start_uploading_photo(call: types.CallbackQuery):
-
+    await PhotoState.waiting_for_photo.set()
     await call.message.answer("Отправте картинку которую хотите отправить", reply_markup=exit_kb_menu)
 
 
