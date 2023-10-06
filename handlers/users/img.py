@@ -3,7 +3,7 @@ from loader import dp
 from States.input_photo import PhotoState
 from aiogram.dispatcher import FSMContext
 from keyboards.inline_keyboards.exit_kb import exit_kb_menu
-
+from keyboards.inline_keyboards.all_buttons import AllButtons
 
 
 import os
@@ -12,7 +12,9 @@ import os
 
 async def start_uploading_photo(call: types.CallbackQuery):
     await PhotoState.waiting_for_photo.set()
-    await call.message.answer("Отправте картинку которую хотите отправить", reply_markup=exit_kb_menu)
+    await call.message.answer("Отправьте картинку которую хотите отправить", reply_markup=exit_kb_menu)
+
+
 
 
 
@@ -25,7 +27,8 @@ async def get_photo(message:types.Message,state: FSMContext):
     await message.photo[-1].download(file_path)
 
     await state.finish()
-    await message.answer("фотография принята!")
+    await message.answer("фотография принята!", reply_markup=AllButtons)
+
 
 
 
