@@ -1,20 +1,14 @@
-from aiogram import types, bot
 from loader import dp
-from States.input_photo import PhotoState
+from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters import Text
+from States.input_photo import PhotoState
 from keyboards.inline_keyboards.exit_kb import exit_kb_menu
 from keyboards.inline_keyboards.all_buttons import AllButtons
-import requests
-from PIL import Image, ImageFilter
-
-import os
-import io
+from PIL import Image
 from data.config import BOT_TOKEN
-
-
-
-
+import requests
+import io
+import os
 
 @dp.callback_query_handler(lambda query: query.data == "upload_photo")
 async def start_uploading_photo(call: types.CallbackQuery):
@@ -41,16 +35,16 @@ async def get_photo(message: types.Message, state: FSMContext):
     if not os.path.exists("images"):
         os.mkdir("images")
 
-    # Получить список файлов в папке
+
     files = [f for f in os.listdir(im) if os.path.isfile(os.path.join(im, f))]
 
-    # Если количество файлов превышает 10, удалить первый файл и сдвинуть остальные
+
     if len(files) >= 10:
         os.remove(os.path.join(im, files[0]))
         for i in range(1, len(files)):
             os.rename(os.path.join(im, files[i]), os.path.join(im, f"{i - 1}.png"))
 
-    # Сохранить новую фотографию
+
     new_filename = f"images/{len(files) - 1}.png"
     img.save(new_filename, format="PNG")
 
